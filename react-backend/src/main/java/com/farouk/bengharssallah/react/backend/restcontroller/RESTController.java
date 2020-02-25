@@ -6,7 +6,8 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import org.modelmapper.ModelMapper;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.farouk.bengharssallah.react.backend.domain.ETF;
 import com.farouk.bengharssallah.react.backend.model.DTETFDTO;
+import com.farouk.bengharssallah.react.backend.model.DTPageDTO;
 import com.farouk.bengharssallah.react.backend.model.IETFDTO;
 import com.farouk.bengharssallah.react.backend.service.ETFService;
 
@@ -30,14 +32,14 @@ public class RESTController {
 		       this.modelMapper = modelMapper;
 	      }
 
-	@GetMapping(value = "/etfs/{country}")
-	public ResponseEntity<List<DTETFDTO>> country(@PathVariable String country) {
+	@GetMapping(value = "/etfs/{country}/{page}")
+	public ResponseEntity<DTPageDTO> country(@PathVariable String country, @PathVariable int page) {
 		      
-		      List<ETF> etfs = etfService.findByCountry(country);
-		      System.out.println("Country " +  etfs.size());
-		      if(etfs != null && etfs.size() > 0) return new ResponseEntity<>(mapAll(etfs, DTETFDTO.class), 
+		      Page<ETF> etfPage = etfService.findByCountry(country, new PageRequest(page, 5));
+		      if(etfPage != null && etfPage.getContent().size() > 0) 
+		    	  return new ResponseEntity<>(map(etfPage), 
 		    		   HttpStatus.OK);
-		      else return new ResponseEntity<>(new ArrayList<DTETFDTO>(),HttpStatus.NOT_FOUND);
+		      else return new ResponseEntity<>(new DTPageDTO(),HttpStatus.NOT_FOUND);
 	   }
 	
 	
@@ -58,6 +60,16 @@ public class RESTController {
 		    		   HttpStatus.OK);
 		      else return new ResponseEntity<>(new ArrayList<DTETFDTO>(), HttpStatus.NOT_FOUND);
 	    }
+	
+	
+	 private DTPageDTO map(final Page<ETF> page) {
+		        DTPageDTO dtoPage = new DTPageDTO();
+		        dtoPage.setSize(new Long(page.getTotalElements()).intValue());
+		        dtoPage.setPages(new Long(page.getTotalPages()).intValue());
+		        dtoPage.setData(page.getContent().stream().map(entity -> map(entity, DTETFDTO.class))
+		                .collect(Collectors.toList()));
+	            return dtoPage;
+	         }
 	
 	
 	   private  <D, T> D map(final T entity, Class<D> outClass) {

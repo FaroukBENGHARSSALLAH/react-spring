@@ -2,6 +2,8 @@ package com.farouk.bengharssallah.react.backend.service;
 
 import java.util.List;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import com.farouk.bengharssallah.react.backend.domain.ETF;
@@ -21,8 +23,8 @@ public class ETFService  {
 		   return etfDao.findByTicker(ticker);
 	   }
 	   
-	   public List<ETF> findByCountry(String country) {
-		   return etfDao.findByCountry(country);
+	   public Page<ETF> findByCountry(String country, PageRequest pageResquest) {
+		   return etfDao.findByCountry(country, pageResquest);
 	   }
 	   
 	   public List<ETF> findAll() {
