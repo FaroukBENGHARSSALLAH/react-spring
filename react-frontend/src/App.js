@@ -9,7 +9,7 @@ class App extends Component {
 	constructor() {
             super();
 			this.state = {
-			        countries : [{idx : "South Korea", value : "South Korea"}, 
+			        countries : [{idx : "USA", value : "USA"}, 
 			        	         {idx : "Germany", value : "Germany"},
 			        	         {idx : "France", value : "France"}],
 				  };
