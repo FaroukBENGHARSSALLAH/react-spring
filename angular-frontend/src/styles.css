@@ -1,0 +1,24 @@
+.float-right{
+	   margin-right: 60px !important;
+   }
+   
+.float-right > label {   
+   margin-left: -70px;
+    margin-top: 40px;
+} 
+
+.float-right > select {   
+   margin-top: -35px;
+} 
+
+
+
+.grennvl{
+	color: green;
+	
+   }
+   
+   
+   .redvl{
+	   color: red;
+   }

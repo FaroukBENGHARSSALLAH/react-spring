@@ -1,0 +1,87 @@
+     <div>
+		<div class="form-group float-right" >
+			 <label>Country</label>
+			 <select class="form-control"  (change)="change($event)"   >
+				  <option  *ngFor="let c of countries"  value="{{c.idx}}"  >{{c.value}}</option>
+			 </select>
+		 </div>
+		 <br/><br/><br/><br/>
+		 <div  class="container"  >
+			 <div  class="row"  >
+				   <div  class="col-md-1 col-lg-1"  >  </div>
+				   <div  class="col-md-10 col-lg-10"  >
+						 <div  *ngIf="etfs && !etf" class="card"  >
+							<div  class="card-body"  >
+								<div>
+									<div class="table-reponsive">
+										<table class="table table-borderless">
+										  <thead>
+											 <tr>
+											 <th>Ticker</th>
+											 <th>Name</th>
+											 <th>Exchange</th>
+											 <th>Action</th>
+											 </tr>
+										  </thead>
+										  <tbody>
+											   <tr *ngFor="let e of etfs"  >
+													<td>{{e.ticker}}</td>
+													<td>{{e.name}}</td>
+													<td>{{e.exchange}}</td>
+													<td>
+														<button type="button"  class="btn btn-outline-info btn-sm"  (click)="fetchetf(e.ticker)" >
+															 <i class="fa fa-check" ></i>
+														</button>
+													</td>
+												</tr>
+										  </tbody>
+										</table>
+									</div>
+									<nav>
+										 <ul  class="pagination pagination-sm justify-content-end" >
+												  <li [ngClass]="(page == 0 || pages == 0) ? 'page-item disabled' : 'page-item'" >
+														<a class="page-link"    (click)="fetch(page - 1)"   ><i class="fa fa-step-backward " ></i></a>
+												  </li>
+												  <li class="page-item disabled"><a class="page-link" href="#">{{page}}</a></li>
+												  <li [ngClass]="(page == pages || pages == 0) ? 'page-item disabled' : 'page-item'" >
+													  <a class="page-link" (click)="fetch(page + 1)"   ><i class="fa fa-step-forward " ></i></a>
+												  </li>
+										</ul>
+									 </nav>
+			                    </div>
+							 </div>
+						 </div>
+						 <div   *ngIf="etf" >
+							<div  class="float-right">
+								      <button type="button"  class="btn btn-outline-info btn-sm"  (click)="back()" >
+										 <i class="fa fa-step-backward" ></i>
+									 </button>
+								   </div><br/><br/>
+								   <div class="card" >
+									  <div class="card-body">
+										<h5 class="card-title float-left">{{etf.ticker}}</h5>
+										<br/>
+										<div class="float-left" >
+											<p class="card-text">Name : {{etf.name}}</p>
+											<p class="card-text">Exchange : {{etf.exchange}}</p>
+											<p class="card-text">Country : {{etf.country}}</p>
+											<p class="card-text">Day Flow :   <span   [ngClass]="(etf.dayFlow > 0) ? 'grennvl' : 'redvl'"  >{{etf.dayFlow}} </span> $</p>
+											<p class="card-text">Week Flow : <span   [ngClass]="(etf.weekFlow > 0) ? 'grennvl' : 'redvl'"  >{{etf.weekFlow}} </span> $</p>
+											<p class="card-text">Year to date Flow : <span [ngClass]="(etf.ytdFlow > 0) ? 'grennvl' : 'redvl'"  >{{etf.ytdFlow}} </span> $</p>
+											<p class="card-text">1 Year Flow : <span [ngClass]="(etf.y1Flow > 0) ? 'grennvl' : 'redvl'"  >{{etf.y1Flow}} </span> $</p>
+											<p class="card-text">3 Year Flow : <span   [ngClass]="(etf.y3Flow > 0) ? 'grennvl' : 'redvl'"  >{{etf.y3Flow}} </span> $</p>
+										</div>
+									  </div>
+									</div>
+									<br/>
+								   <div  class="float-right">
+								      <button type="button"  class="btn btn-outline-info btn-sm"  (click)="back()" >
+										 <i class="fa fa-step-backward" ></i>
+									 </button>
+								   </div>
+							   </div>
+					</div>
+					<div  class="col-md-1 col-lg-1"  >  </div>
+			</div>
+		  </div>
+	</div>

@@ -13,8 +13,21 @@ npm install redux-thunk@2.3.0 --save
 npm install classnames@2.2.6 --save
 npm install font-awesome --save
 npm install axios@0.18.0 --save
-create-react-app react-frontend
 npm install bootstrap@4.1.3
+```
+
+
+
+
+Basic steps to start the angular project 
+
+``` 
+ng new angular-frontend
+npm install font-awesome --save
+npm install bootstrap@4.1.3
+ng generate component etf
+ng generate service etf
+
 ```
 
 > This project in this development stage

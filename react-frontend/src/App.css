@@ -43,12 +43,16 @@
    }
    
 .float-right > label {   
-   margin-left: -200px;
+   margin-left: -240px;
     margin-top: 40px;
 } 
 
 .float-right > select {   
    margin-top: -35px;
 } 
+
+.bottenm{
+	margin-top: -20px;
+}
 
 
