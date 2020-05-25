@@ -9,7 +9,8 @@ npm create-react-app react-frontend
 npm install classnames@2.2.6 --save
 npm install font-awesome --save
 npm install axios@0.18.0 --save
-npm install bootstrap@4.1.3
+npm install @amcharts/amcharts4 --save
+npm install bootstrap@4.1.3 --save
 ```
 
 

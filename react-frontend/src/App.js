@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
-import Navbar from './navbar/Navbar';
-import ETFComponent from './etf/ETFComponent';
+import Navbar from './component/navbar/Navbar';
+import ETFComponent from './component/etf/ETFComponent';
+import LoginComponent from './component/login/LoginComponent';
 
 import '../node_modules/font-awesome/css/font-awesome.min.css';
 
@@ -33,16 +34,26 @@ class App extends Component {
 					   {idx : "Ireland", value : "Ireland"},
 					   {idx : "Russia", value : "Russia"},
 					   {idx : "Italy", value : "Italy"}],
+					   isChanged : false
 				  };
        }
 	   
 	componentDidMount(){}
+	
+	
+	check = (isChanged) => { this.setState({ isChanged : isChanged })}
 	   
 	  render(){
-			  return (<div className="App"  >
-						    <Navbar />
-					        <ETFComponent ycountries={this.state.countries} />
-					    </div>
+			  return ( ("jwt" in localStorage)  ? 
+			            (<div className="App"  >
+						     <Navbar  check =  { this.check }  />
+						     <ETFComponent ycountries = {this.state.countries} />
+						  </div>	 
+							 )  : 
+			     (<div className="App"  >
+						    <Navbar   check =  { this.check }  />
+							<LoginComponent   check =  { this.check }  />
+					    </div>)
 			        );
            }
    }
