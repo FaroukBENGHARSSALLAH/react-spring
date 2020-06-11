@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { Etf } from '../models/etf.model';
-import { EtfService } from '../services/etf.service';
+import { Etf } from '../../models/etf.model';
+
+import { TransactionComponent } from '../transaction/transaction.component';
+
+import { EtfService } from '../../services/etf.service';
 
 @Component({
   selector: 'app-etf',

@@ -1,0 +1,25 @@
+   <div class="container-fluid">
+		<div class="row"  style="paddingTop: 15%;">
+			<div class="col-md-4 offset-md-1 col-sm-12">
+				<div class="card">
+					<div>
+						<h3 class="panel-title text-center" >Provide your credentials</h3>
+					</div>
+					<div class="card-body">
+								<fieldset>
+									<div class="form-group">
+										<input class="form-control" placeholder="login" [ngModel]="login" type="text" value="" />
+									</div>
+									<div class="form-group">
+										<input class="form-control" placeholder="password" [ngModel]="password" type="password" value=""  />
+									</div>
+									
+									<button class="btn btn-lg btn-info btn-block" type="button" (click)="login(login, password)"  >
+										connect <i class="fa fa-check" ></i>
+									</button>
+								</fieldset>
+							</div>
+						</div>
+					</div>
+			   </div>
+	   </div> 

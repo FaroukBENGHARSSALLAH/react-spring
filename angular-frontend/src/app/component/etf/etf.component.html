@@ -8,7 +8,6 @@
 		 <br/><br/><br/><br/>
 		 <div  class="container"  >
 			 <div  class="row"  >
-				   <div  class="col-md-1 col-lg-1"  >  </div>
 				   <div  class="col-md-10 col-lg-10"  >
 						 <div  *ngIf="etfs && !etf" class="card"  >
 							<div  class="card-body"  >
@@ -52,33 +51,34 @@
 							 </div>
 						 </div>
 						 <div   *ngIf="etf" >
-							<div  class="float-right">
-								      <button type="button"  class="btn btn-outline-info btn-sm"  (click)="back()" >
+							<div  class="float-right"   style="margin-left: 10px;"  >
+								      <button type="button"  class="btn btn-outline-info btn-sm"  style="margin-right: 15px;"   (click)="back()" >
 										 <i class="fa fa-step-backward" ></i>
 									 </button>
-								   </div><br/><br/>
+								   </div><
 								   <div class="card" >
 									  <div class="card-body">
-										<h5 class="card-title float-left">{{etf.ticker}}</h5>
-										<br/>
-										<div class="float-left" >
-											<p class="card-text">Name : {{etf.name}}</p>
-											<p class="card-text">Exchange : {{etf.exchange}}</p>
-											<p class="card-text">Country : {{etf.country}}</p>
-											<p class="card-text">Day Flow :   <span   [ngClass]="(etf.dayFlow > 0) ? 'grennvl' : 'redvl'"  >{{etf.dayFlow}} </span> $</p>
-											<p class="card-text">Week Flow : <span   [ngClass]="(etf.weekFlow > 0) ? 'grennvl' : 'redvl'"  >{{etf.weekFlow}} </span> $</p>
-											<p class="card-text">Year to date Flow : <span [ngClass]="(etf.ytdFlow > 0) ? 'grennvl' : 'redvl'"  >{{etf.ytdFlow}} </span> $</p>
-											<p class="card-text">1 Year Flow : <span [ngClass]="(etf.y1Flow > 0) ? 'grennvl' : 'redvl'"  >{{etf.y1Flow}} </span> $</p>
-											<p class="card-text">3 Year Flow : <span   [ngClass]="(etf.y3Flow > 0) ? 'grennvl' : 'redvl'"  >{{etf.y3Flow}} </span> $</p>
-										</div>
+										<h5 class="card-title float-left" style="margin-right: 6px;" >{{etf.ticker}}</h5>
+										<div class="row" >
+										   <div class="col-md-4" >
+												<div class="float-left" >
+													<p class="card-text">Name : {{etf.name}}</p>
+													<p class="card-text">Exchange : {{etf.exchange}}</p>
+													<p class="card-text">Country : {{etf.country}}</p>
+													<p class="card-text">Day Flow :   <span   [ngClass]="(etf.dayFlow > 0) ? 'grennvl' : 'redvl'"  >{{etf.dayFlow}} </span> $</p>
+													<p class="card-text">Week Flow : <span   [ngClass]="(etf.weekFlow > 0) ? 'grennvl' : 'redvl'"  >{{etf.weekFlow}} </span> $</p>
+													<p class="card-text">Year to date Flow : <span [ngClass]="(etf.ytdFlow > 0) ? 'grennvl' : 'redvl'"  >{{etf.ytdFlow}} </span> $</p>
+													<p class="card-text">1 Year Flow : <span [ngClass]="(etf.y1Flow > 0) ? 'grennvl' : 'redvl'"  >{{etf.y1Flow}} </span> $</p>
+													<p class="card-text">3 Year Flow : <span   [ngClass]="(etf.y3Flow > 0) ? 'grennvl' : 'redvl'"  >{{etf.y3Flow}} </span> $</p>
+												</div>
+										  </div>
+										  <div class="col-md-8" > 
+										       <div  className="card-body"  >  
+											         <app-transaction  [price]={{ etf.weekFlow }}  ></app-transaction>
+											   </div>
+										  </div>
 									  </div>
 									</div>
-									<br/>
-								   <div  class="float-right">
-								      <button type="button"  class="btn btn-outline-info btn-sm"  (click)="back()" >
-										 <i class="fa fa-step-backward" ></i>
-									 </button>
-								   </div>
 							   </div>
 					</div>
 					<div  class="col-md-1 col-lg-1"  >  </div>
