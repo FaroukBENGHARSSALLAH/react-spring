@@ -1,7 +1,8 @@
 import React, {Component} from 'react';
-import Navbar from './component/navbar/Navbar';
+import NavbarComponent from './component/navbar/NavbarComponent';
 import ETFComponent from './component/etf/ETFComponent';
 import LoginComponent from './component/login/LoginComponent';
+import FooterComponent from './component/footer/FooterComponent';
 
 import '../node_modules/font-awesome/css/font-awesome.min.css';
 
@@ -41,18 +42,23 @@ class App extends Component {
 	componentDidMount(){}
 	
 	
+	
+	
+	
 	check = (isChanged) => { this.setState({ isChanged : isChanged })}
 	   
 	  render(){
-			  return ( ("jwt" in localStorage)  ? 
+			  return (!(localStorage.getItem("jwt") == null)  ? 
 			            (<div className="App"  >
-						     <Navbar  check =  { this.check }  />
+						     <NavbarComponent  check =  { this.check }  />
 						     <ETFComponent ycountries = {this.state.countries} />
+							 <FooterComponent />
 						  </div>	 
 							 )  : 
 			     (<div className="App"  >
-						    <Navbar   check =  { this.check }  />
+						    <NavbarComponent   check =  { this.check }  />
 							<LoginComponent   check =  { this.check }  />
+							<FooterComponent />
 					    </div>)
 			        );
            }

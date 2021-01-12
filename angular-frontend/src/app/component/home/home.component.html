@@ -1,0 +1,8 @@
+<app-navbar></app-navbar>
+<div *ngIf="!authentificated()" >
+    <app-login></app-login>
+</div>	
+<div *ngIf="authentificated()" > 
+   <app-etf></app-etf>
+</div>
+<app-footer></app-footer>

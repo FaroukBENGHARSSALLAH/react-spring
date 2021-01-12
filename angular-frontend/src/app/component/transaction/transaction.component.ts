@@ -1,36 +1,39 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
-/* import * as am4core from "@amcharts/amcharts4/core";
-import * as am4charts from "@amcharts/amcharts4/charts";
-import am4themes_animated from "@amcharts/amcharts4/themes/animated";  */
+import { Component, Inject, NgZone, PLATFORM_ID, Input} from '@angular/core';
+import { isPlatformBrowser } from '@angular/common';
 
-
+import * as am4core from '@amcharts/amcharts4/core';
+import * as am4charts from '@amcharts/amcharts4/charts';
+import am4themes_animated from '@amcharts/amcharts4/themes/animated';
 
 @Component({
   selector: 'app-transaction',
   templateUrl: './transaction.component.html',
   styleUrls: ['./transaction.component.css']
 })
-export class TransactionComponent implements  OnInit, OnDestroy  {
+export class TransactionComponent  {
 	
-   private chart: am4charts.XYChart;
-   private interval: any;
-   private price: number;
+  private chart: am4charts.XYChart;
+  private interval: any;
+  @Input('price')
+  private price: number;
 
-  constructor() {}
+  constructor(@Inject(PLATFORM_ID) private platformId, private zone: NgZone) {}
 
-  ngOnInit() {
-         
-		 Promise.all([
-			  import("@amcharts/amcharts4/core"),
-			  import("@amcharts/amcharts4/charts"),
-			  import("@amcharts/amcharts4/themes/animated")
-			]).then((modules) => {
-			  const am4core = modules[0];
-			  const am4charts = modules[1];
-			  const am4themes_animated = modules[2].default;
-			  am4core.useTheme(am4themes_animated);
-		 
-		    this.chart = am4core.create("chartdiv", am4charts.XYChart);
+
+  browserOnly(f: () => void) {
+    if (isPlatformBrowser(this.platformId)) {
+      this.zone.runOutsideAngular(() => {
+            f();
+        });
+      }
+  }
+
+  ngAfterViewInit() {
+    
+    this.browserOnly(() => {
+		
+            am4core.useTheme(am4themes_animated);
+            this.chart = am4core.create("chartdiv", am4charts.XYChart);
 			this.chart.hiddenState.properties.opacity = 0;
 			this.chart.padding(0, 0, 0, 0);
 			this.chart.zoomOutButton.disabled = true;
@@ -88,31 +91,12 @@ export class TransactionComponent implements  OnInit, OnDestroy  {
 			dateAxis.renderer.labels.template.adapter.add("fillOpacity", function (fillOpacity, target) {
 				let dataItem = target.dataItem;
 				return dataItem.position;
-			})
-
-			
+			});
 			dateAxis.events.on("validated", function () {
 				am4core.iter.each(dateAxis.renderer.labels.iterator(), function (label) {
 					label.fillOpacity = 1;
 				})
-			})
-
-			
-		/**	dateAxis.renderer.labels.template.adapter.add("rotation", function (rotation, target) {
-				let dataItem = target.dataItem;
-				if (dataItem.date && dataItem.date.getTime() === am4core.time.round(new Date(dataItem.date.getTime()), "minute").getTime()) {
-					target.verticalCenter = "middle";
-					target.horizontalCenter = "left";
-					return -90;
-				}
-				else {
-					target.verticalCenter = "bottom";
-					target.horizontalCenter = "middle";
-					return 0;
-				}
-			})  **/
-
-			
+			}); 
 			let bullet = series.createChild(am4charts.CircleBullet);
 			bullet.circle.radius = 5;
 			bullet.fillOpacity = 1;
@@ -123,7 +107,6 @@ export class TransactionComponent implements  OnInit, OnDestroy  {
 				bullet.moveTo(series.dataItems.last.point);
 				bullet.validatePosition();
 			});
-
 			this.chart.data = data;
 			this.interval = setInterval(() => {
                     let vprice = this.price + Math.round((Math.random() < 0.5 ? 1 : -1) * Math.random() * 5);		 
@@ -131,23 +114,16 @@ export class TransactionComponent implements  OnInit, OnDestroy  {
 					this.chart.addData({ 
 						   date: new Date(lastdataItem.dateX.getTime() + 1000), 
 						   value: vprice 
-							   },
-						1
-							);
-                 }, 1000);
-			
-				
-      })
-                .catch(e => {
-                    console.error("Error when creating chart", e);
-                });
-        });
-	 
-	 
-	 
-   ngOnDestroy() {
-          clearInterval(this.interval);	   
+							   },1); }, 1000);
+    });
+  }
+
+  ngOnDestroy() {
+    this.browserOnly(() => {
+      if (this.chart) {
+		  clearInterval(this.interval);	   
 	      this.chart.dispose();
       }
-
+    });
+  }
 }

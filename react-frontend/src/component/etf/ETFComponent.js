@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import axios from 'axios';
 import Transaction from '../transaction/Transaction';
+import * as constants from '../../utils/Constants';
 
 
 class ETFComponent extends Component {
@@ -20,60 +21,63 @@ class ETFComponent extends Component {
        }
 	   
 	componentDidMount(){
-            axios.get('http://localhost:8080/etfs/'+this.state.country+'/'+this.state.page).then(res => {
-			   this.setState({
-			         etfs : res.data.data,
-					 pages : res.data.pages,
-					 size : res.data.size 
-				 });
-				  const innerv = (<div>
-						<div className="table-reponsive">
-							<table className="table table-borderless">
-							  <thead>
-							     <tr>
-								 <th>Ticker</th>
-								 <th>Name</th>
-								 <th>Exchange</th>
-								 <th>Action</th>
-								 </tr>
-							  </thead>
-							  <tbody>
-							     {this.state.etfs.map((item,i) => { return (
-										<tr key={item.ticker} >
-										<td>{item.ticker}</td>
-										<td>{item.name}</td>
-										<td>{item.exchange}</td>
-										<td>
-											<button type="button"  className="btn btn-outline-info btn-sm"  onClick={this.fetch.bind(this, item.ticker)} >
-												 <i className="fa fa-check" ></i>
-											</button>
-										</td>
-									  </tr>
-									);})}
-							  </tbody>
-							</table>
-						</div>
-						<nav>
-						     <ul  className="pagination pagination-sm justify-content-end" >
-									 <li  className="page-item disabled" >
-											<button className="page-link"  ><i className="fa fa-step-backward " ></i></button>
-									  </li>
-									  <li className="page-item disabled"><a className="page-link" href="#">0</a></li>
-									  <li className="page-item" >
-										  <button className="page-link" onClick={this.fetchPage.bind(this, 1)}  ><i className="fa fa-step-forward " ></i></button>
-									  </li>
-							</ul>
-						</nav>
-						</div>);						
-				  this.setState({content: innerv});
-			 });
+               axios.get(constants.HOST + 'etfs/' + this.state.country + '/' + this.state.page, {headers:{'Authorization' : constants.TOKEN_PREFIX + localStorage.getItem('jwt')}
+				 }).then(res => {
+							   this.setState({
+									 etfs : res.data.data,
+									 pages : res.data.pages,
+									 size : res.data.size 
+								 });
+								  const innerv = (<div>
+										<div className="table-reponsive">
+											<table className="table table-borderless">
+											  <thead>
+												 <tr>
+												 <th>Ticker</th>
+												 <th>Name</th>
+												 <th>Exchange</th>
+												 <th>Action</th>
+												 </tr>
+											  </thead>
+											  <tbody>
+												 {this.state.etfs.map((item,i) => { return (
+														<tr key={item.ticker} >
+														<td>{item.ticker}</td>
+														<td>{item.name}</td>
+														<td>{item.exchange}</td>
+														<td>
+															<button type="button"  className="btn btn-outline-info btn-sm"  onClick={this.fetch.bind(this, item.ticker)} >
+																 <i className="fa fa-check" ></i>
+															</button>
+														</td>
+													  </tr>
+													);})}
+											  </tbody>
+											</table>
+										</div>
+										<nav>
+											 <ul  className="pagination pagination-sm justify-content-end" >
+													 <li  className="page-item disabled" >
+															<button className="page-link"  ><i className="fa fa-step-backward " ></i></button>
+													  </li>
+													  <li className="page-item disabled"><a className="page-link" href="#">0</a></li>
+													  <li className="page-item" >
+														  <button className="page-link" onClick={this.fetchPage.bind(this, 1)}  ><i className="fa fa-step-forward " ></i></button>
+													  </li>
+											</ul>
+										</nav>
+										</div>);						
+								  this.setState({content: innerv});
+							 });
        }	
 	   
 	onchange(e){
           e.preventDefault();
           this.state.country = e.target.value;
 		  this.state.page = 0;
-		  axios.get('http://localhost:8080/etfs/'+this.state.country+'/'+this.state.page).then(res => {
+		  axios.get(constants.HOST + 'etfs/' + this.state.country + '/' + this.state.page,
+		         {headers:{'Authorization' : constants.TOKEN_PREFIX + localStorage.getItem('jwt')}
+				 }).then(res => {
 			   this.setState({
 			         etfs : res.data.data,
 					 pages : res.data.pages,
@@ -126,7 +130,9 @@ class ETFComponent extends Component {
 
        	fetchPage(page){
           this.state.page = page; 
-		  axios.get('http://localhost:8080/etfs/'+this.state.country+'/'+page).then(res => {
+		  axios.get(constants.HOST  + 'etfs/' + this.state.country + '/' + page,
+		          {headers:{'Authorization' : constants.TOKEN_PREFIX + localStorage.getItem('jwt')}}
+				   ).then(res => {
 			   this.setState({etfs : res.data.data});
 				  const innerv =  (<div>
 						<div className="table-reponsive">
@@ -219,7 +225,9 @@ class ETFComponent extends Component {
 	   
 	  fetch(etf){
 		  this.setState({cetft : etf}); 
-		  axios.get('http://localhost:8080/etf/'+etf)
+		  axios.get(constants.HOST  + 'etf/' + etf, 
+		           {headers:{'Authorization' : constants.TOKEN_PREFIX + localStorage.getItem('jwt')}}
+				   )
 		    .then(res => {
 			   this.setState({
 				   cetf : res.data

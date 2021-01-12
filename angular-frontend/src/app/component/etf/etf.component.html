@@ -8,8 +8,8 @@
 		 <br/><br/><br/><br/>
 		 <div  class="container"  >
 			 <div  class="row"  >
-				   <div  class="col-md-10 col-lg-10"  >
-						 <div  *ngIf="etfs && !etf" class="card"  >
+				   <div  class="col-md-10 col-lg-10"  *ngIf="etfs && !etf" >
+						 <div   class="card"  >
 							<div  class="card-body"  >
 								<div>
 									<div class="table-reponsive">
@@ -50,12 +50,14 @@
 			                    </div>
 							 </div>
 						 </div>
-						 <div   *ngIf="etf" >
+			      </div>
+				  <div  class="col-md-1 col-lg-1"  *ngIf="etfs && !etf"   >  </div>
+				  	 <div  class="col-md-12 col-lg-12"  *ngIf="etf" >
 							<div  class="float-right"   style="margin-left: 10px;"  >
 								      <button type="button"  class="btn btn-outline-info btn-sm"  style="margin-right: 15px;"   (click)="back()" >
 										 <i class="fa fa-step-backward" ></i>
 									 </button>
-								   </div><
+								   </div>
 								   <div class="card" >
 									  <div class="card-body">
 										<h5 class="card-title float-left" style="margin-right: 6px;" >{{etf.ticker}}</h5>
@@ -74,14 +76,13 @@
 										  </div>
 										  <div class="col-md-8" > 
 										       <div  className="card-body"  >  
-											         <app-transaction  [price]={{ etf.weekFlow }}  ></app-transaction>
+											         <app-transaction  [price]=etf.weekFlow  ></app-transaction> 
 											   </div>
 										  </div>
 									  </div>
 									</div>
 							   </div>
 					</div>
-					<div  class="col-md-1 col-lg-1"  >  </div>
-			</div>
+					
 		  </div>
 	</div>

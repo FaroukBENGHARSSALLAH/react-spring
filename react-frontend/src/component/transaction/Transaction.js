@@ -57,41 +57,37 @@ class Transaction extends Component {
 			series.interpolationDuration = 500;
 			series.defaultState.transitionDuration = 0;
 			series.tensionX = 0.8;
-			//series.name = "Changement de prix par temps";
-			/** chart.events.on("datavalidated", function () {
-				dateAxis.zoom({ start: 1 / 15, end: 1.2 }, false, true);
-			}); */
+			
 			
 			let title = chart.titles.create();
-			title.text = "Changement de prix par temps";
+			title.text = "ETF Price time change";
 			title.fontSize = 25;
 			title.marginBottom = 30;
 
 			dateAxis.interpolationDuration = 500;
 			dateAxis.rangeChangeDuration = 500;
 
-			// all the below is optional, makes some fancy effects
-			// gradient fill of the series
+			
 			series.fillOpacity = 1;
 			let gradient = new am4core.LinearGradient();
 			gradient.addColor(chart.colors.getIndex(0), 0.2);
 			gradient.addColor(chart.colors.getIndex(0), 0);
 			series.fill = gradient;
 
-			// this makes date axis labels to fade out
+			
 			dateAxis.renderer.labels.template.adapter.add("fillOpacity", function (fillOpacity, target) {
 				let dataItem = target.dataItem;
 				return dataItem.position;
 			})
 
-			// need to set this, otherwise fillOpacity is not changed and not set
+			
 			dateAxis.events.on("validated", function () {
 				am4core.iter.each(dateAxis.renderer.labels.iterator(), function (label) {
 					label.fillOpacity = 1;
 				})
 			})
 
-			// this makes date axis labels which are at equal minutes to be rotated
+			
 			dateAxis.renderer.labels.template.adapter.add("rotation", function (rotation, target) {
 				let dataItem = target.dataItem;
 				if (dataItem.date && dataItem.date.getTime() === am4core.time.round(new Date(dataItem.date.getTime()), "minute").getTime()) {
@@ -106,7 +102,7 @@ class Transaction extends Component {
 				}
 			})
 
-			// bullet at the front of the line
+			
 			let bullet = series.createChild(am4charts.CircleBullet);
 			bullet.circle.radius = 5;
 			bullet.fillOpacity = 1;

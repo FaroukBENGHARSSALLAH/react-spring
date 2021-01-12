@@ -1,25 +1,32 @@
    <div class="container-fluid">
-		<div class="row"  style="paddingTop: 15%;">
+		<div class="row"  style="padding-top: 10%;">
 			<div class="col-md-4 offset-md-1 col-sm-12">
 				<div class="card">
 					<div>
 						<h3 class="panel-title text-center" >Provide your credentials</h3>
 					</div>
+					<div  *ngIf="error != null" class="text-center" style="padding-top: 10px;" > 
+					     <span  class="text-center redvl" >Username password do not match</span>
+					 </div>
 					<div class="card-body">
 								<fieldset>
 									<div class="form-group">
-										<input class="form-control" placeholder="login" [ngModel]="login" type="text" value="" />
+										<input class="form-control" placeholder="login" [(ngModel)]="username" type="text"  />
 									</div>
 									<div class="form-group">
-										<input class="form-control" placeholder="password" [ngModel]="password" type="password" value=""  />
+										<input class="form-control" placeholder="password" [(ngModel)]="password" type="password"   />
 									</div>
 									
-									<button class="btn btn-lg btn-info btn-block" type="button" (click)="login(login, password)"  >
+									<button class="btn btn-lg btn-info btn-block" type="button" (click)="connect()"  >
 										connect <i class="fa fa-check" ></i>
 									</button>
 								</fieldset>
 							</div>
 						</div>
-					</div>
+		    </div>
+			<div class="col-md-4 offset-md-1 col-sm-12"> 
+				<img class="rounded float-left banner"  style="padding-top: -9%;width: 90%; "  src="./assets/banner.jpg" />
+			</div>
+					
 			   </div>
 	   </div> 

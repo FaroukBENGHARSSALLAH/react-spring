@@ -63,6 +63,27 @@
    .redvl{
 	   color: red;
    }
+   
+   
+    .banner{
+	   padding-top: -9%;
+	   width: 90%; 
+   }
+   
+ .copyright{
+        font-family: monospace;
+        font-size: 13px;
+  }
+  
+.padding-auth{
+	    margin-top: 15%;
+  }  
+  
+.padding-nauth{
+	    margin-top: 40%;
+   }   
+  
+
 
 
     @media only screen and (orientation: portrait) and (max-width:1000px){

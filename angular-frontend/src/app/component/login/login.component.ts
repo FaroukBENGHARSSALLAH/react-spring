@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+
 import { LoginService } from '../../services/login.service';
 
 @Component({
@@ -7,20 +9,31 @@ import { LoginService } from '../../services/login.service';
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit {
+	
+	private username: string = '';
+	private password: string = '';
+	private error: string = null;
 
-  constructor(private loginService:LoginService) { }
+  constructor(private loginService:LoginService, private router: Router) { }
 
    ngOnInit() {}
   
   
   
-     login(login, password){
-		  /* this.loginService.login(login, password)
+     connect(){
+		   this.error = null;
+		   this.loginService.login(this.username, this.password)
 		    .subscribe((res: any) => {
-					 this.etfs = res.data;}, 
-					    (err) => {console.log(err)});  */
-		localStorage.setItem("jwt", "jwt");
-		localStorage.setItem("expire", "jwt");				
+					             localStorage.setItem("jwt", res);
+								  let currentUrl = this.router.url;
+		this.router.navigateByUrl('/', {skipLocationChange: true}).then(()=> this.router.navigate([currentUrl]));
+					          }, 
+					    (err) => {
+							    console.log(err);
+								this.error = "";
+						}
+						);  
+					
           }
 
 }
