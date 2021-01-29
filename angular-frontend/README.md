@@ -2,9 +2,11 @@
 ==========================
 
 This project was generated with Angular CLI version 1.4.10.
-Basic steps to start the  project.
- 
 
+
+
+###### Basic steps to start the  project.
+ 
 ``` 
 ng new angular-frontend
 npm install font-awesome --save
@@ -17,7 +19,7 @@ ng generate service s-name
 
 ```
 
-## Development
+###### Development
 
   - Run `ng serve` to start the dev server. 
   - Navigate to `http://localhost:4200/`. 
@@ -25,7 +27,7 @@ ng generate service s-name
 
 
 
-## Build
+###### Build
 
    - Run `ng build` to build the project. 
    - The build artifacts will be stored in the `dist/` directory. 
