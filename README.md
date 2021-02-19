@@ -14,10 +14,12 @@ React Spring
    * It uses basic functionalities not advanced features like react router, redux, etc.
 
 ###### Live versions
-   * For the backend project, you can visit the live version via [Backend](https://backend-part.herokuapp.com/).
-   * For the react project, you can visit the live version via [React](https://react-frontend-part.herokuapp.com/).
+   * For the backend project, you can visit the live Rest API version via [Backend](https://backend-part.herokuapp.com/).
+   * For the react project, you can visit the live version via [Olrhain](https://olrhain-dev-alpha.herokuapp.com/).
 
 
 
 
 > This project is in the alpha stage
+
+> Currently, i'm working on uploading the angular version in Heroku cloud, the version does compile.
